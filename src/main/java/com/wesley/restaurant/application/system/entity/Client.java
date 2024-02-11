@@ -18,6 +18,9 @@ public class Client {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
+    private String password;
+
     @Column(nullable = false, unique = true)
     private String cpf;
 
@@ -30,11 +33,12 @@ public class Client {
             mappedBy = "client")
     private List<Item> items;
 
-    public Client(long clientId, String clientName, String numberPhone, String email, String cpf, Address address) {
+    public Client(long clientId, String clientName, String numberPhone, String email, String password, String cpf, Address address) {
         this.clientId = clientId;
         this.clientName = clientName;
         this.numberPhone = numberPhone;
         this.email = email;
+        this.password = password;
         this.cpf = cpf;
         this.address = address;
     }
@@ -89,5 +93,13 @@ public class Client {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
