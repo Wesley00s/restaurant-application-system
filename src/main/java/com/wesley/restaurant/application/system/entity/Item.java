@@ -64,4 +64,12 @@ public class Item {
     public void setItemDesc(String itemDesc) {
         this.itemDesc = itemDesc;
     }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }
