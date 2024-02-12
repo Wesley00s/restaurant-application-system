@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    @Query(value = "SELECT * FROM item WHERE client_id = ?1", nativeQuery = true)
-    List<Item> findAlLByClient(Long clientId);
+//    @Query(value = "SELECT * FROM item WHERE client_id = ?1", nativeQuery = true)
+//    List<Item> findAlLByClient(Long clientId);
 }
