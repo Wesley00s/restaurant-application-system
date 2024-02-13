@@ -3,17 +3,11 @@ package com.wesley.restaurant.application.system.services.implemented;
 import com.wesley.restaurant.application.system.entity.Employee;
 import com.wesley.restaurant.application.system.repository.EmployeeRepository;
 import com.wesley.restaurant.application.system.services.IEmployeeService;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
 public class EmployeeService implements IEmployeeService {
-    private final EmployeeRepository employeeRepository;
-
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+    private EmployeeRepository employeeRepository;
 
     @Override
     public Employee save(Employee employee) {

@@ -9,7 +9,7 @@ public class Item {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String itemName;
 
     @Column(nullable = false)
@@ -18,16 +18,15 @@ public class Item {
     @Column(nullable = false)
     private String itemDesc;
 
-    public Item(Long itemId, String itemName, BigDecimal itemPrice, String itemDesc) {
-        this.itemId = itemId;
+    @ManyToOne
+    @JoinColumn(name = "clientId")
+    private Client client;
+
+    public Item(String itemName, BigDecimal itemPrice, String itemDesc, Client client) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemDesc = itemDesc;
-    }
-    public Item(String itemName, BigDecimal itemPrice, String itemDesc) {
-        this.itemName = itemName;
-        this.itemPrice = itemPrice;
-        this.itemDesc = itemDesc;
+        this.client = client;
     }
 
     public Item() {
@@ -64,5 +63,13 @@ public class Item {
 
     public void setItemDesc(String itemDesc) {
         this.itemDesc = itemDesc;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

@@ -8,6 +8,5 @@ import java.util.List;
 public interface IItemService {
     Item save(Item item);
     Item findById(Long itemId);
-    List<Item> findAllItems();
     void delete(Long itemId);
 }
