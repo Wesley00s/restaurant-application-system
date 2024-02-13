@@ -17,13 +17,13 @@ public class Client {
     @Column(nullable = false)
     private String numberPhone;
 
-    @Column(nullable = false, unique = true) @Email
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true) @CPF
+    @Column(nullable = false, unique = true)
     private String cpf;
 
     @Column(nullable = false) @Embedded

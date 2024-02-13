@@ -1,9 +1,11 @@
 package com.wesley.restaurant.application.system.dto;
 
 import com.wesley.restaurant.application.system.entity.EatingTable;
+import jakarta.validation.constraints.NotNull;
 
 public class EatingTableDto {
     private final Long tableId;
+    @NotNull(message = "Table capacity may be not null")
     private final Integer tableCapacity;
     private final Boolean available;
 
