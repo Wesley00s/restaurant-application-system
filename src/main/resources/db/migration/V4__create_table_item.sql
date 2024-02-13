@@ -4,9 +4,8 @@ CREATE TABLE item
     item_name  VARCHAR(255)                            NOT NULL,
     item_price DECIMAL                                 NOT NULL,
     item_desc  VARCHAR(255)                            NOT NULL,
-    client_id  BIGINT,
     CONSTRAINT pk_item PRIMARY KEY (item_id)
 );
 
 ALTER TABLE item
-    ADD CONSTRAINT FK_ITEM_ON_CLIENT_ID FOREIGN KEY (client_id) REFERENCES client (client_id);
+    ADD CONSTRAINT uc_item_item_name UNIQUE (item_name);
