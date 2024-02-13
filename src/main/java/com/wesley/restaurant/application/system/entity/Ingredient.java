@@ -7,7 +7,7 @@ public class Ingredient {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ingredientId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String ingredientName;
 
     @Column(nullable = false)

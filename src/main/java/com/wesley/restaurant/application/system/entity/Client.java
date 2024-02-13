@@ -1,13 +1,15 @@
 package com.wesley.restaurant.application.system.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.List;
 
 @Entity
 public class Client {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long clientId;
+    private Long clientId;
 
     @Column(nullable = false)
     private String clientName;
@@ -15,13 +17,13 @@ public class Client {
     @Column(nullable = false)
     private String numberPhone;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true) @Email
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true) @CPF
     private String cpf;
 
     @Column(nullable = false) @Embedded
@@ -31,9 +33,17 @@ public class Client {
     @OneToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.REMOVE, CascadeType.PERSIST},
             mappedBy = "client")
-    private List<Item> items;
+    private List<Request> requests;
 
-    public Client(long clientId, String clientName, String numberPhone, String email, String password, String cpf, Address address) {
+    public Client(String clientName, String numberPhone, String email, String password, String cpf, Address address) {
+        this.clientName = clientName;
+        this.numberPhone = numberPhone;
+        this.email = email;
+        this.password = password;
+        this.cpf = cpf;
+        this.address = address;
+    }
+    public Client(Long clientId, String clientName, String numberPhone, String email, String password, String cpf, Address address) {
         this.clientId = clientId;
         this.clientName = clientName;
         this.numberPhone = numberPhone;
@@ -47,13 +57,13 @@ public class Client {
 
     }
 
+    public Client(Long clientId) {
+    }
+
     public long getClientId() {
         return clientId;
     }
 
-    public void setClientId(long clientId) {
-        this.clientId = clientId;
-    }
 
     public String getClientName() {
         return clientName;

@@ -3,11 +3,18 @@ package com.wesley.restaurant.application.system.services.implemented;
 import com.wesley.restaurant.application.system.entity.EatingTable;
 import com.wesley.restaurant.application.system.repository.EatingTableRepository;
 import com.wesley.restaurant.application.system.services.IEatingTableService;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EatingTableService implements IEatingTableService {
-    private EatingTableRepository eatingTableRepository;
+    private final EatingTableRepository eatingTableRepository;
+
+    public EatingTableService(EatingTableRepository eatingTableRepository) {
+        this.eatingTableRepository = eatingTableRepository;
+    }
 
     @Override
     public EatingTable save(EatingTable eatingTable) {
@@ -21,7 +28,12 @@ public class EatingTableService implements IEatingTableService {
     }
 
     @Override
-    public void delete(Long tableId) {
+    public List<EatingTable> findAll() {
+        return this.eatingTableRepository.findAll();
+    }
+
+    @Override
+    public void deleteById(Long tableId) {
         Optional<EatingTable> optionalEatingTable = this.eatingTableRepository.findById(tableId);
 
         if (optionalEatingTable.isPresent()) {
