@@ -3,18 +3,11 @@ package com.wesley.restaurant.application.system.services.implemented;
 import com.wesley.restaurant.application.system.entity.Request;
 import com.wesley.restaurant.application.system.repository.RequestRepository;
 import com.wesley.restaurant.application.system.services.IRequestService;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
-@Service
 public class RequestService implements IRequestService {
-    private final RequestRepository requestRepository;
-
-    public RequestService(RequestRepository requestRepository) {
-        this.requestRepository = requestRepository;
-    }
+    private RequestRepository requestRepository;
 
     @Override
     public Request save(Request request) {
@@ -22,13 +15,13 @@ public class RequestService implements IRequestService {
     }
 
     @Override
-    public Request findById(UUID requestId) {
+    public Request findById(Long requestId) {
         return requestRepository.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("Request with ID " + requestId + " not found"));
     }
 
     @Override
-    public void deleteById(UUID requestId) {
+    public void deleteById(Long requestId) {
         Optional<Request> optionalRequest = requestRepository.findById(requestId);
 
         if (optionalRequest.isPresent()) {

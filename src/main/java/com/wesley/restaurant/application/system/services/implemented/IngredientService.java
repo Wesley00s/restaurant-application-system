@@ -3,18 +3,11 @@ package com.wesley.restaurant.application.system.services.implemented;
 import com.wesley.restaurant.application.system.entity.Ingredient;
 import com.wesley.restaurant.application.system.repository.IngredientRepository;
 import com.wesley.restaurant.application.system.services.IIngredientsService;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
-@Service
 public class IngredientService implements IIngredientsService {
-    private final IngredientRepository ingredientRepository;
-
-    public IngredientService(IngredientRepository ingredientRepository) {
-        this.ingredientRepository = ingredientRepository;
-    }
+    private IngredientRepository ingredientRepository;
 
     @Override
     public Ingredient save(Ingredient ingredient) {
@@ -25,11 +18,6 @@ public class IngredientService implements IIngredientsService {
     public Ingredient findById(Long ingredientId) {
         return ingredientRepository.findById(ingredientId)
                 .orElseThrow(() -> new RuntimeException("Ingredient with ID " + ingredientId + " not fond"));
-    }
-
-    @Override
-    public List<Ingredient> findAllIngredients() {
-        return this.ingredientRepository.findAll();
     }
 
     @Override

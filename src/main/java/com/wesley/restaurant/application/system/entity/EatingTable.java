@@ -5,16 +5,14 @@ import jakarta.persistence.*;
 @Entity
 public class EatingTable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tableId;
+    private long tableId;
 
     @Column(nullable = false)
-    private Integer tableCapacity;
+    private int tableCapacity;
 
+    private boolean available;
 
-    private Boolean available;
-
-    public EatingTable(Long tableId, Integer tableCapacity, Boolean available) {
-        this.tableId = tableId;
+    public EatingTable(int tableCapacity, boolean available) {
         this.tableCapacity = tableCapacity;
         this.available = available;
     }
@@ -23,27 +21,27 @@ public class EatingTable {
 
     }
 
-    public Long getTableId() {
+    public long getTableId() {
         return tableId;
     }
 
-    public void setTableId(Long tableId) {
+    public void setTableId(long tableId) {
         this.tableId = tableId;
     }
 
-    public Integer getTableCapacity() {
+    public int getTableCapacity() {
         return tableCapacity;
     }
 
-    public void setTableCapacity(Integer tableCapacity) {
+    public void setTableCapacity(int tableCapacity) {
         this.tableCapacity = tableCapacity;
     }
 
-    public Boolean isAvailable() {
+    public boolean isAvailable() {
         return available;
     }
 
-    public void setAvailable(Boolean available) {
+    public void setAvailable(boolean available) {
         this.available = available;
     }
 }
