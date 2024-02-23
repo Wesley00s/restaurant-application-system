@@ -1,7 +1,6 @@
 package com.wesley.restaurant.application.system.dto;
 
 import com.wesley.restaurant.application.system.entity.Ingredient;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
