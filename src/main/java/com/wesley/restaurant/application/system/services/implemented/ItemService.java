@@ -24,7 +24,7 @@ public class ItemService implements IItemService {
     @Override
     public Item findById(Long itemId) {
         return this.itemRepository.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("ID" + itemId + "not found"));
+                .orElseThrow(() -> new RuntimeException("ID " + itemId + " not found"));
     }
 
     @Override
