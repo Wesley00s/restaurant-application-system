@@ -7,6 +7,7 @@ import com.wesley.restaurant.application.system.services.implemented.EmployeeSer
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,22 +20,25 @@ public class EmployeeController {
     }
 
     @PostMapping
-    private ResponseEntity<String> saveEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
+//    @PreAuthorize("hasRole('MANAGERS')")
+    public ResponseEntity<String> saveEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
         Employee employee = this.employeeService.save(employeeDto.toEntity());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Employee " + employee.getEmail() + " saved!");
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<EmployeeView> findById(@PathVariable Long id) {
+//    @PreAuthorize("hasAnyRole('MANAGERS', 'USERS')")
+    public ResponseEntity<EmployeeView> findById(@PathVariable Long id) {
         Employee employee = this.employeeService.findById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new EmployeeView(employee));
     }
 
     @DeleteMapping("/{id}")
+//    @PreAuthorize("hasRole('MANAGERS')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    private void deleteById(@PathVariable Long id) {
+    public void deleteById(@PathVariable Long id) {
         this.employeeService.deleteById(id);
     }
 }

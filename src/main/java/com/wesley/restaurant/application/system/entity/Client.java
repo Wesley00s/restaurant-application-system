@@ -1,113 +1,78 @@
 package com.wesley.restaurant.application.system.entity;
 
-import jakarta.persistence.*;
+import com.wesley.restaurant.application.system.enumeration.Role;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Client {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long clientId;
-
-    @Column(nullable = false)
-    private String clientName;
-
-    @Column(nullable = false)
-    private String numberPhone;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false, unique = true)
-    private String cpf;
-
-    @Column(nullable = false) @Embedded
-    private Address address;
-
-    @Column(nullable = false)
-    @OneToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.REMOVE, CascadeType.PERSIST},
-            mappedBy = "client")
-    private List<Request> requests;
-
-    public Client(String clientName, String numberPhone, String email, String password, String cpf, Address address) {
-        this.clientName = clientName;
-        this.numberPhone = numberPhone;
-        this.email = email;
-        this.password = password;
-        this.cpf = cpf;
-        this.address = address;
-    }
-    public Client(Long clientId, String clientName, String numberPhone, String email, String password, String cpf, Address address) {
-        this.clientId = clientId;
-        this.clientName = clientName;
-        this.numberPhone = numberPhone;
-        this.email = email;
-        this.password = password;
-        this.cpf = cpf;
-        this.address = address;
+@PrimaryKeyJoinColumn(name = "client_id")
+public class Client extends User {
+    public Client(String userName, String numberPhone, String email, String password, String cpf, Address address) {
+        super(userName, numberPhone, email, password, cpf, address, Role.CLIENT);
     }
 
-    public Client() {
+    public Client(Long clientId, String userName, String numberPhone, String email, String password, String cpf, Address address) {
+        super(clientId, userName, numberPhone, email, password, cpf, address, Role.CLIENT);
 
     }
+    public Client() {}
 
     public Client(Long clientId) {
     }
 
-    public long getClientId() {
-        return clientId;
+    public Client(String login, String encryptPassword, Role role) {
+        this.setEmail(login);
+        this.setPassword(encryptPassword);
+        this.setRole(role);
+    }
+
+    public Request requestItem(Item item, EatingTable eatingTable, Employee employee) {
+        for (Ingredient ingredient : item.getIngredients()) {
+            int newQuantity = ingredient.getQuantityInStock() - 1;
+            if (newQuantity < 0) {
+//                throw new InsufficientStockException("Insufficient quantity for ingredient: " + ingredient.getName());
+                throw new RuntimeException("Insufficient quantity for ingredient: " + ingredient.getIngredientName());
+            }
+            ingredient.setQuantityInStock(newQuantity);
+        }
+
+        return new Request(this, item, eatingTable, employee);
     }
 
 
-    public String getClientName() {
-        return clientName;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("CLIENT"));
     }
 
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
+    @Override
+    public String getUsername() {
+        return getEmail();
     }
 
-    public String getNumberPhone() {
-        return numberPhone;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setNumberPhone(String numberPhone) {
-        this.numberPhone = numberPhone;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

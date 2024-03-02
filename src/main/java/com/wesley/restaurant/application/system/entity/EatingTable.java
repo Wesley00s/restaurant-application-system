@@ -6,11 +6,8 @@ import jakarta.persistence.*;
 public class EatingTable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tableId;
-
     @Column(nullable = false)
     private Integer tableCapacity;
-
-
     private Boolean available;
 
     public EatingTable(Long tableId, Integer tableCapacity, Boolean available) {
@@ -20,7 +17,9 @@ public class EatingTable {
     }
 
     public EatingTable() {
+    }
 
+    public EatingTable(Long tableId) {
     }
 
     public Long getTableId() {

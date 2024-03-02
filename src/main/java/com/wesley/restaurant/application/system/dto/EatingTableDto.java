@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 public class EatingTableDto {
     private final Long tableId;
     @NotNull(message = "Table capacity may be not null")
-    private final Integer tableCapacity;
+    private Integer tableCapacity;
     private final Boolean available;
 
     public EatingTableDto(Long tableId, Integer tableCapacity, Boolean available) {
@@ -21,5 +21,13 @@ public class EatingTableDto {
                 this.tableCapacity,
                 this.available
         );
+    }
+
+    public Integer getTableCapacity() {
+        return tableCapacity;
+    }
+
+    public void setTableCapacity(Integer tableCapacity) {
+        this.tableCapacity = tableCapacity;
     }
 }

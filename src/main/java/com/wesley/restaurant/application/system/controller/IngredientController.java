@@ -2,13 +2,17 @@ package com.wesley.restaurant.application.system.controller;
 
 import com.wesley.restaurant.application.system.dto.IngredientDto;
 import com.wesley.restaurant.application.system.dto.IngredientView;
+import com.wesley.restaurant.application.system.dto.IngredientViewList;
 import com.wesley.restaurant.application.system.entity.Ingredient;
+import com.wesley.restaurant.application.system.entity.Item;
 import com.wesley.restaurant.application.system.services.implemented.IngredientService;
+import com.wesley.restaurant.application.system.services.implemented.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/ingredient")
@@ -31,6 +35,16 @@ public class IngredientController {
         Ingredient ingredient = this.ingredientService.findById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new IngredientView(ingredient));
+    }
+
+    @GetMapping("/all-ingredients-by-item")
+    private ResponseEntity<List<IngredientViewList>> findAllIngredientsByItem(@RequestParam(value = "itemId") Long itemId) {
+        List<IngredientViewList> ingredientViewList = this.ingredientService.findAllIngredientsByItem(itemId).stream()
+                .map(IngredientViewList::new)
+                .toList();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ingredientViewList);
     }
 
     @GetMapping("/all-ingredients")

@@ -1,6 +1,8 @@
 package com.wesley.restaurant.application.system.dto;
 
 import com.wesley.restaurant.application.system.entity.Client;
+import com.wesley.restaurant.application.system.entity.User;
+import com.wesley.restaurant.application.system.enumeration.Role;
 
 public class ClientView {
     private Long clientId;
@@ -12,10 +14,11 @@ public class ClientView {
     private String city;
     private String street;
     private String zipCode;
+    private Role role;
 
     public ClientView() {}
 
-    public ClientView(Long clientId, String clientName, String numberPhone, String email, String password, String cpf, String city, String street, String zipCode) {
+    public ClientView(Long clientId, String clientName, String numberPhone, String email, String password, String cpf, String city, String street, String zipCode, Role role) {
         this.clientId = clientId;
         this.clientName = clientName;
         this.numberPhone = numberPhone;
@@ -25,19 +28,21 @@ public class ClientView {
         this.city = city;
         this.street = street;
         this.zipCode = zipCode;
+        this.role = role;
     }
 
     public ClientView(Client client) {
         this(
-            client.getClientId(),
-            client.getClientName(),
+            client.getUserId(),
+            client.getUserName(),
             client.getNumberPhone(),
             client.getEmail(),
             client.getPassword(),
             client.getCpf(),
             client.getAddress().getCity(),
             client.getAddress().getStreet(),
-            client.getAddress().getZipCode()
+            client.getAddress().getZipCode(),
+            client.getRole()
         );
     }
 
@@ -75,5 +80,9 @@ public class ClientView {
 
     public String getZipCode() {
         return zipCode;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }

@@ -1,5 +1,7 @@
 package com.wesley.restaurant.application.system.services;
 
+import com.wesley.restaurant.application.system.entity.Ingredient;
+import com.wesley.restaurant.application.system.entity.IngredientUsages;
 import com.wesley.restaurant.application.system.entity.Item;
 import org.springframework.data.jpa.repository.Query;
 

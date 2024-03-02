@@ -6,9 +6,9 @@ import jakarta.validation.constraints.NotNull;
 
 public class IngredientDto {
     @NotEmpty(message = "Ingredient name may be not empty")
-    private final String ingredientName;
+    private String ingredientName;
     @NotNull(message = "Quantity in stock may be not empty")
-    private final Integer quantityInStock;
+    private Integer quantityInStock;
 
     public IngredientDto(String ingredientName, Integer quantityInStock) {
         this.ingredientName = ingredientName;
@@ -20,5 +20,21 @@ public class IngredientDto {
                 this.ingredientName,
                 this.quantityInStock
         );
+    }
+
+    public String getIngredientName() {
+        return ingredientName;
+    }
+
+    public void setIngredientName(String ingredientName) {
+        this.ingredientName = ingredientName;
+    }
+
+    public Integer getQuantityInStock() {
+        return quantityInStock;
+    }
+
+    public void setQuantityInStock(Integer quantityInStock) {
+        this.quantityInStock = quantityInStock;
     }
 }
