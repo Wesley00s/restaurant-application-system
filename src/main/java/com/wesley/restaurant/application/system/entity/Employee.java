@@ -1,75 +1,34 @@
 package com.wesley.restaurant.application.system.entity;
 
-import com.wesley.restaurant.application.system.enumeration.Occupancy;
+import com.wesley.restaurant.application.system.enumeration.Role;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.sql.DataTruncation;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class Employee {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long employeeId;
-
-    @Column(nullable = false)
-    private String employeeName;
-
-    @Column(nullable = false)
-    private Occupancy occupancy;
-
+@PrimaryKeyJoinColumn(name = "employee_id")
+public class Employee extends User {
     @Column(nullable = false)
     private LocalDate hiringDate;
 
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
-    private Address employeeAddress;
-
-    public Employee(Long employeeId, String employeeName, Occupancy occupancy, LocalDate hiringDate, String email, String password, Address employeeAddress) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.occupancy = occupancy;
+    public Employee(String userName, String numberPhone, String email, String password, String cpf, Address address, LocalDate hiringDate) {
+        super(userName, numberPhone, email, password, cpf, address, Role.WAITER);
         this.hiringDate = hiringDate;
-        this.email = email;
-        this.password = password;
-        this.employeeAddress = employeeAddress;
     }
-
-    public Employee(String employeeName, Occupancy occupancy, LocalDate hiringDate, String email, String password, Address employeeAddress) {
-        this.employeeName = employeeName;
-        this.occupancy = occupancy;
+    public Employee(Long employeeId, String userName, String numberPhone, String email, String password, String cpf, Address address, LocalDate hiringDate) {
+        super(employeeId, userName, numberPhone, email, password, cpf, address, Role.WAITER);
         this.hiringDate = hiringDate;
-        this.email = email;
-        this.password = password;
-        this.employeeAddress = employeeAddress;
     }
 
     public Employee() {
 
     }
 
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
-
-    public Occupancy getOccupancy() {
-        return occupancy;
-    }
-
-    public void setOccupancy(Occupancy occupancy) {
-        this.occupancy = occupancy;
+    public Employee(Long employeeId) {
     }
 
     public LocalDate getHiringDate() {
@@ -80,27 +39,50 @@ public class Employee {
         this.hiringDate = hiringDate;
     }
 
-    public Address getEmployeeAddress() {
-        return employeeAddress;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.getRole().equals(Role.ADMIN)) return List.of(
+                new SimpleGrantedAuthority("ROLE_ADMIN"),
+                new SimpleGrantedAuthority("ROLE_CHEF"),
+                new SimpleGrantedAuthority("ROLE_WAITER"),
+                new SimpleGrantedAuthority("ROLE_CLIENT")
+
+        );
+
+        else if (this.getRole().equals(Role.CHEF)) return List.of(
+                new SimpleGrantedAuthority("ROLE_CHEF"),
+                new SimpleGrantedAuthority("ROLE_WAITER"),
+                new SimpleGrantedAuthority("ROLE_CLIENT")
+        );
+
+         return List.of(
+                new SimpleGrantedAuthority("ROLE_WAITER"),
+                new SimpleGrantedAuthority("ROLE_CLIENT")
+        );
     }
 
-    public void setEmployeeAddress(Address employeeAddress) {
-        this.employeeAddress = employeeAddress;
+    @Override
+    public String getUsername() {
+        return getEmail();
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

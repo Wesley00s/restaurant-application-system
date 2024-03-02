@@ -3,6 +3,7 @@ package com.wesley.restaurant.application.system.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -18,20 +19,33 @@ public class Item {
     @Column(nullable = false)
     private String itemDesc;
 
-    public Item(Long itemId, String itemName, BigDecimal itemPrice, String itemDesc) {
+    @Column(nullable = false)
+    @OneToMany(mappedBy = "item", cascade = {CascadeType.ALL, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<Ingredient> ingredients;
+
+    public Item(Long itemId, String itemName, BigDecimal itemPrice, String itemDesc, List<Ingredient> ingredients) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemDesc = itemDesc;
+        this.ingredients = ingredients;
     }
-    public Item(String itemName, BigDecimal itemPrice, String itemDesc) {
+    public Item(String itemName, BigDecimal itemPrice, String itemDesc, List<Ingredient> ingredients) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemDesc = itemDesc;
+        this.ingredients = ingredients;
     }
 
     public Item() {
+    }
 
+    public Item(Long itemId) {
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        ingredients.add(ingredient);
+        ingredient.setItem(this);
     }
 
     public Long getItemId() {
@@ -64,5 +78,24 @@ public class Item {
 
     public void setItemDesc(String itemDesc) {
         this.itemDesc = itemDesc;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemId=" + itemId +
+                ", itemName='" + itemName + '\'' +
+                ", itemPrice=" + itemPrice +
+                ", itemDesc='" + itemDesc + '\'' +
+                ", ingredients=" + ingredients +
+                '}';
     }
 }

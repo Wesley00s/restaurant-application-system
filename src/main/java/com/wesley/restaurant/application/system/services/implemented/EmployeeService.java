@@ -3,6 +3,7 @@ package com.wesley.restaurant.application.system.services.implemented;
 import com.wesley.restaurant.application.system.entity.Employee;
 import com.wesley.restaurant.application.system.repository.EmployeeRepository;
 import com.wesley.restaurant.application.system.services.IEmployeeService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -36,5 +37,10 @@ public class EmployeeService implements IEmployeeService {
         } else {
             throw new RuntimeException("Employee with ID " + employeeId + " not found");
         }
+    }
+
+    @Override
+    public UserDetails findByEmail(String email) {
+        return this.employeeRepository.findByEmail(email);
     }
 }

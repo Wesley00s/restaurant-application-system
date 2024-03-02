@@ -1,52 +1,53 @@
 package com.wesley.restaurant.application.system.dto;
 
-import com.wesley.restaurant.application.system.entity.Address;
 import com.wesley.restaurant.application.system.entity.Employee;
-import com.wesley.restaurant.application.system.enumeration.Occupancy;
 
 import java.time.LocalDate;
 
 public class EmployeeView {
-    private final String employeeName;
-    private final Occupancy occupancy;
-    private final LocalDate hiringDate;
+    private final Long employeeId;
+    private final String userName;
+    private final String numberPhone;
     private final String email;
     private final String password;
+    private final String cpf;
     private final String city;
     private final String street;
     private final String zipCode;
+    private final LocalDate hiringDate;
 
-    public EmployeeView(String employeeName, Occupancy occupancy, LocalDate hiringDate, String email, String password, String city, String street, String zipCode) {
-        this.employeeName = employeeName;
-        this.occupancy = occupancy;
-        this.hiringDate = hiringDate;
+    public EmployeeView(Long employeeId, String userName, String numberPhone, String email, String password, String cpf, String city, String street, String zipCode, LocalDate hiringDate) {
+        this.employeeId = employeeId;
+        this.userName = userName;
+        this.numberPhone = numberPhone;
         this.email = email;
         this.password = password;
+        this.cpf = cpf;
         this.city = city;
         this.street = street;
         this.zipCode = zipCode;
+        this.hiringDate = hiringDate;
     }
 
     public EmployeeView(Employee employee) {
         this (
-                employee.getEmployeeName(),
-                employee.getOccupancy(),
-                employee.getHiringDate(),
+                employee.getUserId(),
+                employee.getUserName(),
+                employee.getNumberPhone(),
                 employee.getEmail(),
                 employee.getPassword(),
-                employee.getEmployeeAddress().getCity(),
-                employee.getEmployeeAddress().getStreet(),
-                employee.getEmployeeAddress().getZipCode()
+                employee.getCpf(),
+                employee.getAddress().getCity(),
+                employee.getAddress().getStreet(),
+                employee.getAddress().getZipCode(),
+                employee.getHiringDate()
         );
     }
 
-    public String getEmployeeName() {
-        return employeeName;
+    public String getUserName() {
+        return userName;
     }
 
-    public Occupancy getOccupancy() {
-        return occupancy;
-    }
 
     public LocalDate getHiringDate() {
         return hiringDate;
@@ -70,5 +71,17 @@ public class EmployeeView {
 
     public String getZipCode() {
         return zipCode;
+    }
+
+    public String getNumberPhone() {
+        return numberPhone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public Long getEmployeeId() {
+        return employeeId;
     }
 }

@@ -32,7 +32,7 @@ public class Request {
     private EatingTable eatingTable;
 
     @ManyToOne
-    @JoinColumn(name = "employId")
+    @JoinColumn(name = "employeeId")
     private Employee employee;
 
     public Request(Client client, Item item, EatingTable eatingTable, Employee employee) {
@@ -45,6 +45,9 @@ public class Request {
     public Request() {
 
     }
+
+//    public Request(Client client) {
+//    }
 
     public UUID getIdRequest() {
         return idRequest;

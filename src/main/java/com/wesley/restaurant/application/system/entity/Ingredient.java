@@ -13,9 +13,23 @@ public class Ingredient {
     @Column(nullable = false)
     private Integer quantityInStock;
 
+    @JoinColumn
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Item item;
+
     public Ingredient(String ingredientName, Integer quantityInStock) {
         this.ingredientName = ingredientName;
         this.quantityInStock = quantityInStock;
+    }
+
+    public Ingredient(String ingredientName, Integer quantityInStock, Item item) {
+        this.ingredientName = ingredientName;
+        this.quantityInStock = quantityInStock;
+        this.item = item;
+    }
+
+    public Ingredient(Long ingredientId) {
+        this.ingredientId = ingredientId;
     }
 
     public Ingredient() {
@@ -44,5 +58,22 @@ public class Ingredient {
 
     public void setQuantityInStock(Integer quantityInStock) {
         this.quantityInStock = quantityInStock;
+    }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "ingredientId=" + ingredientId +
+                ", ingredientName='" + ingredientName + '\'' +
+                ", quantityInStock=" + quantityInStock +
+                '}';
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

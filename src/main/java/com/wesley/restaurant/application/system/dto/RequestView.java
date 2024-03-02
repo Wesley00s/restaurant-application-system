@@ -1,10 +1,10 @@
 package com.wesley.restaurant.application.system.dto;
 
+import com.wesley.restaurant.application.system.entity.Ingredient;
 import com.wesley.restaurant.application.system.entity.Request;
-import com.wesley.restaurant.application.system.enumeration.Occupancy;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.LongStream;
 
 public class RequestView {
 
@@ -12,6 +12,8 @@ public class RequestView {
     private final Long itemId;
     private final Long tableId;
     private final Long employeeId;
+
+    private List<Ingredient> ingredients;
 
     public RequestView(
             Long clientId,
@@ -27,10 +29,10 @@ public class RequestView {
 
     public RequestView(Request request) {
         this (
-                request.getClient().getClientId(),
+                request.getClient().getUserId(),
                 request.getItem().getItemId(),
                 request.getEatingTable().getTableId(),
-                request.getEmployee().getEmployeeId()
+                request.getEmployee().getUserId()
         );
     }
 
