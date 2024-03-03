@@ -1,7 +1,7 @@
 package com.wesley.restaurant.application.system.controller;
 
 import com.wesley.restaurant.application.system.dto.AuthenticationDTO;
-import com.wesley.restaurant.application.system.dto.ClientDto;
+import com.wesley.restaurant.application.system.dto.ClientDTO;
 import com.wesley.restaurant.application.system.dto.EmployeeDto;
 import com.wesley.restaurant.application.system.dto.LoginResponseDTO;
 import com.wesley.restaurant.application.system.entity.Client;
@@ -47,7 +47,6 @@ public class AuthenticationController {
             var auth = this.manager.authenticate(usernamePassword);
 
             var token = tokenService.generateToken((User) auth.getPrincipal());
-
             return ResponseEntity.status(HttpStatus.OK)
                     .body("User successfully logged! " + new LoginResponseDTO(token));
         } catch (Exception e) {
@@ -56,7 +55,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/client-register")
-    public ResponseEntity<String> register(@RequestBody @Valid ClientDto data) {
+    public ResponseEntity<String> register(@RequestBody @Valid ClientDTO data) {
         if(this.clientService.findByEmail(data.toEntity().getEmail()) != null) return ResponseEntity.badRequest().build();
         String encryptPassword = new BCryptPasswordEncoder().encode(data.toEntity().getPassword());
         Client client = data.toEntity();

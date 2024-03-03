@@ -12,23 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ItemDto {
+public record ItemDto (
+        @NotEmpty(message = "Item name may be not empty") String itemName,
+        @NotNull(message = "Item price may be not null") BigDecimal itemPrice,
+        @NotEmpty(message = "Item description may be not empty")  String itemDesc,
+        @NotEmpty(message = "Ingredients may be not empty") List<Long> ingredientIds
 
-    @NotEmpty(message = "Item name may be not empty")
-    private String itemName;
-    @NotNull(message = "Item price may be not null")
-    private BigDecimal itemPrice;
-    @NotEmpty(message = "Item description may be not empty")
-    private String itemDesc;
-    @NotEmpty(message = "Ingredients may be not empty")
-    private List<Long> ingredientIds;
-
-    public ItemDto(String itemName, BigDecimal itemPrice, String itemDesc, List<Long> ingredientIds) {
-        this.itemName = itemName;
-        this.itemPrice = itemPrice;
-        this.itemDesc = itemDesc;
-        this.ingredientIds = ingredientIds;
-    }
+) {
 
     public Item toEntity(IngredientRepository ingredientRepository) {
         List<Ingredient> ingredients = ingredientIds.stream()
@@ -47,21 +37,5 @@ public class ItemDto {
                 this.itemDesc,
                 ingredients
         );
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public BigDecimal getItemPrice() {
-        return itemPrice;
-    }
-
-    public String getItemDesc() {
-        return itemDesc;
-    }
-
-    public List<Long> getIngredientIds() {
-        return ingredientIds;
     }
 }

@@ -7,7 +7,7 @@ public class EatingTableDto {
     private final Long tableId;
     @NotNull(message = "Table capacity may be not null")
     private Integer tableCapacity;
-    private final Boolean available;
+    private Boolean available;
 
     public EatingTableDto(Long tableId, Integer tableCapacity, Boolean available) {
         this.tableId = tableId;
@@ -23,11 +23,20 @@ public class EatingTableDto {
         );
     }
 
+
     public Integer getTableCapacity() {
         return tableCapacity;
     }
 
     public void setTableCapacity(Integer tableCapacity) {
         this.tableCapacity = tableCapacity;
+    }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 }
