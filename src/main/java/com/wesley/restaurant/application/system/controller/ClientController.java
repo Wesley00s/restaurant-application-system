@@ -1,16 +1,13 @@
 package com.wesley.restaurant.application.system.controller;
 
-import com.wesley.restaurant.application.system.dto.ClientDto;
+import com.wesley.restaurant.application.system.dto.ClientDTO;
 import com.wesley.restaurant.application.system.dto.ClientView;
 import com.wesley.restaurant.application.system.entity.Client;
-import com.wesley.restaurant.application.system.entity.User;
 import com.wesley.restaurant.application.system.services.implemented.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.lang.annotation.Documented;
 
 @RestController
 @RequestMapping("/api/client")
@@ -22,7 +19,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<String> saveClient(@RequestBody @Valid ClientDto clientDto) {
+    public ResponseEntity<String> saveClient(@RequestBody @Valid ClientDTO clientDto) {
          Client savedClient = this.clientService.save(clientDto.toEntity());
          return ResponseEntity.status(HttpStatus.CREATED)
                  .body("Client " + savedClient.getEmail() + " saved!");
