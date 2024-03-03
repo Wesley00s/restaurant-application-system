@@ -1,6 +1,6 @@
 # Restaurant Management System
 
-Welcome to the Restaurant Management System repository! This project is a Java application based on Spring Boot, using PostgreSQL as the database to create a REST API for restaurant management. The system includes essential classes to model the structure of a restaurant, such as Client, Eanting Table, Employee, Ingredient, Item, and Request.
+Welcome to the Restaurant Management System repository! This project is a Java application based on Spring Boot, using PostgreSQL as the database to create a REST API for restaurant management. The system includes essential classes to model the structure of a restaurant, such as Client, Eating Table, Employee, Ingredient, Item, and Request.
 
 ## Prerequisites
 
