@@ -27,9 +27,11 @@ Make sure you have the following tools installed before running the system:
 
 ## Database Configuration
 
-PostgreSQL is used as the database to store system data. Before running the application, create a database named `restaurant` and adjust the connection settings in the `application.properties` file.   
+PostgreSQL is used as the database to store system data. Before running the application, create a database named `restaurant` and adjust the connection settings in the `application.ynl` file.   
     
-  ```properties
-  spring.datasource.url=jdbc:postgresql://localhost:5432/restaurant
-  spring.datasource.username=your_username
-  spring.datasource.password=your_password
+  ```yml
+  spring:
+     datasource:
+       url: jdbc:postgresql://localhost:5432/restaurant_application_system_db
+       username: postgres
+       password: 123456
