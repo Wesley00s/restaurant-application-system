@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
-public record EmployeeDto(
+public record EmployeeDto (
         @NotEmpty(message = "Employee name may be not empty") String employeeName,
         @NotEmpty(message = "Employee number phone may be not empty") String numberPhone,
         @NotEmpty(message = "Employee email may be not empty") @Email(message = "Email invalid") String email,

@@ -18,13 +18,6 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> saveClient(@RequestBody @Valid ClientDTO clientDto) {
-         Client savedClient = this.clientService.save(clientDto.toEntity());
-         return ResponseEntity.status(HttpStatus.CREATED)
-                 .body("Client " + savedClient.getEmail() + " saved!");
-    }
-
     @GetMapping("/{id}")
     private ResponseEntity<ClientView> findById(@PathVariable Long id) {
         Client user = this.clientService.findById(id);
