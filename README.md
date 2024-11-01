@@ -27,7 +27,7 @@ Make sure you have the following tools installed before running the system:
 
 ## Database Configuration
 
-PostgreSQL is used as the database to store system data. Before running the application, create a database named `restaurant_application_system_db` and adjust the connection settings in the `application.ynl` file.   
+PostgreSQL is used as the database to store system data. Before running the application, create a database named `restaurant_application_system_db` and adjust the connection settings in the `application.yml` file.   
     
   ```yml
   spring:
